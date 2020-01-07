@@ -1,0 +1,16 @@
+package format.type;
+
+import java.util.List;
+
+/**
+ * @Author: zhanghaozhe
+ * @Date: 2019/12/24 13:46
+ */
+public class Operation extends TokenList {
+    public Operation() {
+    }
+
+    public Operation(List<Token> tokens) {
+        super(tokens);
+    }
+}
