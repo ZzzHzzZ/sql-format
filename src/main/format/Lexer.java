@@ -17,18 +17,14 @@ import java.util.regex.Pattern;
  */
 public class Lexer {
 
-    public List<Token> generateList(String sql) {
+    public static List<Token> generateList(String sql) {
         List<Token> result = new ArrayList<>();
         for (int i = 0; i < sql.length(); i++) {
             String matchSql = sql.substring(i);
-            for (Map.Entry<String, TokenType> entry : KeyWords.SQL_REGEX_MAP.entrySet()) {
-                String pattern = entry.getKey();
-                Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+            for (Map.Entry<Pattern, TokenType> entry : KeyWords.SQL_REGEX_MAP.entrySet()) {
+                Pattern p = entry.getKey();
                 Matcher m = p.matcher(matchSql);
-                if (!m.find()) {
-                    continue;
-                }
-                if (0 != m.start()) {
+                if(!m.lookingAt()){
                     continue;
                 }
                 TokenType ttype = entry.getValue();

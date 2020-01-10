@@ -2,61 +2,62 @@ package format.constants;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @Author: zhanghaozhe
  * @Date: 2019/12/17 16:02
  */
 public class KeyWords {
-    public static final Map<String, TokenType> SQL_REGEX_MAP = new LinkedHashMap<>();
+    public static final Map<Pattern, TokenType> SQL_REGEX_MAP = new LinkedHashMap<>();
     public static final Map<String, TokenType> KEYWORDS_COMMON = new LinkedHashMap<>();
     public static final Map<String, TokenType> KEYWORDS_ORACLE = new LinkedHashMap<>();
     public static final Map<String, TokenType> KEYWORDS = new LinkedHashMap<>();
 
     static {
-        SQL_REGEX_MAP.put("(--|//|# )\\+.*?(\\r\\n|\\r|\\n|$)", TokenType.SHINT);
-        SQL_REGEX_MAP.put("/\\*\\+[\\s\\S]*?\\*/", TokenType.MHINT);
-        SQL_REGEX_MAP.put("(--|//|# ).*?(\\r\\n|\\r|\\n|$)", TokenType.SINGLE);
-        SQL_REGEX_MAP.put("/\\*[\\s\\S]*?\\*/", TokenType.MULTILINE);
-        SQL_REGEX_MAP.put("(\\r\\n|\\r|\\n)", TokenType.NEWLINE);
-        SQL_REGEX_MAP.put("\\s+?", TokenType.WHITESPACE);
-        SQL_REGEX_MAP.put(":=", TokenType.ASSIGNMENT);
-        SQL_REGEX_MAP.put("::", TokenType.PUNCTUATION);
-        SQL_REGEX_MAP.put("\\*", TokenType.WILDCARD);
-        SQL_REGEX_MAP.put("`(``|[^`])*`", TokenType.NAME);
-        SQL_REGEX_MAP.put("´(´´|[^´])*´", TokenType.NAME);
-        SQL_REGEX_MAP.put("(\\$(?:[_A-ZÀ-Ü]\\w*)?\\$)[\\s\\S]*?\\1", TokenType.LITERAL);
-        SQL_REGEX_MAP.put("\\?", TokenType.PLACEHOLDER);
-        SQL_REGEX_MAP.put("%(\\(\\w+\\))?s", TokenType.PLACEHOLDER);
-        SQL_REGEX_MAP.put("(?<!\\w)[$:?]\\w+", TokenType.PLACEHOLDER);
-        SQL_REGEX_MAP.put("\\\\\\w+", TokenType.COMMAND);
-        SQL_REGEX_MAP.put("(CASE|IN|VALUES|USING|FROM)\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("(@|##|#)[A-ZÀ-Ü]\\w+", TokenType.NAME);
-        SQL_REGEX_MAP.put("[A-ZÀ-Ü]\\w*(?=\\s*\\.)", TokenType.NAME);
-        SQL_REGEX_MAP.put("(?<=\\.)[A-ZÀ-Ü]\\w*", TokenType.NAME);
-        SQL_REGEX_MAP.put("[A-ZÀ-Ü]\\w*(?=\\()", TokenType.NAME);
-        SQL_REGEX_MAP.put("-?0x[\\dA-F]+", TokenType.HEXADECIMAL);
-        SQL_REGEX_MAP.put("-?\\d*(\\.\\d+)?E-?\\d+", TokenType.FLOAT);
-        SQL_REGEX_MAP.put("-?(\\d+(\\.\\d*)|\\.\\d+)", TokenType.FLOAT);
-        SQL_REGEX_MAP.put("-?\\d+(?![_A-ZÀ-Ü])", TokenType.INTEGER);
-        SQL_REGEX_MAP.put("'(''|\\\\\\\\|\\\\'|[^'])*'", TokenType.STRINGSINGLE);
-        SQL_REGEX_MAP.put("\"(\"\"|\\\\\\\\|\\\\\"|[^\"])*\"", TokenType.SYMBOL);
-        SQL_REGEX_MAP.put("(\"\"|\".*?[^\\\\]\")", TokenType.SYMBOL);
-        SQL_REGEX_MAP.put("(?<![\\w\\])])(\\[[^\\]]+\\])", TokenType.NAME);
-        SQL_REGEX_MAP.put("((LEFT\\s+|RIGHT\\s+|FULL\\s+)?(INNER\\s+|OUTER\\s+|STRAIGHT\\s+)?|(CROSS\\s+|NATURAL\\s+)?)?JOIN\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("END(\\s+IF|\\s+LOOP|\\s+WHILE)?\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("NOT\\s+NULL\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("UNION\\s+ALL\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("CREATE(\\s+OR\\s+REPLACE)?\\b", TokenType.DDL);
-        SQL_REGEX_MAP.put("DOUBLE\\s+PRECISION\\b", TokenType.BUILTIN);
-        SQL_REGEX_MAP.put("GROUP\\s+BY\\b", TokenType.KEYWORD);
-        SQL_REGEX_MAP.put("ORDER\\s+BY\\b", TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("(--|//|# )\\+.*?(\\r\\n|\\r|\\n|$)",Pattern.CASE_INSENSITIVE), TokenType.SHINT);
+        SQL_REGEX_MAP.put(Pattern.compile("/\\*\\+[\\s\\S]*?\\*/",Pattern.CASE_INSENSITIVE), TokenType.MHINT);
+        SQL_REGEX_MAP.put(Pattern.compile("(--|//|# ).*?(\\r\\n|\\r|\\n|$)",Pattern.CASE_INSENSITIVE), TokenType.SINGLE);
+        SQL_REGEX_MAP.put(Pattern.compile("/\\*[\\s\\S]*?\\*/",Pattern.CASE_INSENSITIVE), TokenType.MULTILINE);
+        SQL_REGEX_MAP.put(Pattern.compile("(\\r\\n|\\r|\\n)",Pattern.CASE_INSENSITIVE), TokenType.NEWLINE);
+        SQL_REGEX_MAP.put(Pattern.compile("\\s+?",Pattern.CASE_INSENSITIVE), TokenType.WHITESPACE);
+        SQL_REGEX_MAP.put(Pattern.compile(":=",Pattern.CASE_INSENSITIVE), TokenType.ASSIGNMENT);
+        SQL_REGEX_MAP.put(Pattern.compile("::",Pattern.CASE_INSENSITIVE), TokenType.PUNCTUATION);
+        SQL_REGEX_MAP.put(Pattern.compile("\\*",Pattern.CASE_INSENSITIVE), TokenType.WILDCARD);
+        SQL_REGEX_MAP.put(Pattern.compile("`(``|[^`])*`",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("´(´´|[^´])*´",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("(\\$(?:[_A-ZÀ-Ü]\\w*)?\\$)[\\s\\S]*?\\1",Pattern.CASE_INSENSITIVE), TokenType.LITERAL);
+        SQL_REGEX_MAP.put(Pattern.compile("\\?",Pattern.CASE_INSENSITIVE), TokenType.PLACEHOLDER);
+        SQL_REGEX_MAP.put(Pattern.compile("%(\\(\\w+\\))?s",Pattern.CASE_INSENSITIVE), TokenType.PLACEHOLDER);
+        SQL_REGEX_MAP.put(Pattern.compile("(?<!\\w)[$:?]\\w+",Pattern.CASE_INSENSITIVE), TokenType.PLACEHOLDER);
+        SQL_REGEX_MAP.put(Pattern.compile("\\\\\\w+",Pattern.CASE_INSENSITIVE), TokenType.COMMAND);
+        SQL_REGEX_MAP.put(Pattern.compile("(CASE|IN|VALUES|USING|FROM)\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("(@|##|#)[A-ZÀ-Ü]\\w+",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("[A-ZÀ-Ü]\\w*(?=\\s*\\.)",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("(?<=\\.)[A-ZÀ-Ü]\\w*",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("[A-ZÀ-Ü]\\w*(?=\\()",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("-?0x[\\dA-F]+",Pattern.CASE_INSENSITIVE), TokenType.HEXADECIMAL);
+        SQL_REGEX_MAP.put(Pattern.compile("-?\\d*(\\.\\d+)?E-?\\d+",Pattern.CASE_INSENSITIVE), TokenType.FLOAT);
+        SQL_REGEX_MAP.put(Pattern.compile("-?(\\d+(\\.\\d*)|\\.\\d+)",Pattern.CASE_INSENSITIVE), TokenType.FLOAT);
+        SQL_REGEX_MAP.put(Pattern.compile("-?\\d+(?![_A-ZÀ-Ü])",Pattern.CASE_INSENSITIVE), TokenType.INTEGER);
+        SQL_REGEX_MAP.put(Pattern.compile("'(''|\\\\\\\\|\\\\'|[^'])*'",Pattern.CASE_INSENSITIVE), TokenType.STRINGSINGLE);
+        SQL_REGEX_MAP.put(Pattern.compile("\"(\"\"|\\\\\\\\|\\\\\"|[^\"])*\"",Pattern.CASE_INSENSITIVE), TokenType.SYMBOL);
+        SQL_REGEX_MAP.put(Pattern.compile("(\"\"|\".*?[^\\\\]\")",Pattern.CASE_INSENSITIVE), TokenType.SYMBOL);
+        SQL_REGEX_MAP.put(Pattern.compile("(?<![\\w\\])])(\\[[^\\]]+\\])",Pattern.CASE_INSENSITIVE), TokenType.NAME);
+        SQL_REGEX_MAP.put(Pattern.compile("((LEFT\\s+|RIGHT\\s+|FULL\\s+)?(INNER\\s+|OUTER\\s+|STRAIGHT\\s+)?|(CROSS\\s+|NATURAL\\s+)?)?JOIN\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("END(\\s+IF|\\s+LOOP|\\s+WHILE)?\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("NOT\\s+NULL\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("UNION\\s+ALL\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("CREATE(\\s+OR\\s+REPLACE)?\\b",Pattern.CASE_INSENSITIVE), TokenType.DDL);
+        SQL_REGEX_MAP.put(Pattern.compile("DOUBLE\\s+PRECISION\\b",Pattern.CASE_INSENSITIVE), TokenType.BUILTIN);
+        SQL_REGEX_MAP.put(Pattern.compile("GROUP\\s+BY\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
+        SQL_REGEX_MAP.put(Pattern.compile("ORDER\\s+BY\\b",Pattern.CASE_INSENSITIVE), TokenType.KEYWORD);
 
-        SQL_REGEX_MAP.put("[0-9_A-ZÀ-Ü][_$#\\w]*", TokenType.FUNCTION);
+        SQL_REGEX_MAP.put(Pattern.compile("[0-9_A-ZÀ-Ü][_$#\\w]*",Pattern.CASE_INSENSITIVE), TokenType.FUNCTION);
 
-        SQL_REGEX_MAP.put("[;:()\\[\\],\\.]", TokenType.PUNCTUATION);
-        SQL_REGEX_MAP.put("[<>=~!]+", TokenType.COMPARISON);
-        SQL_REGEX_MAP.put("[+/@#%^&|`?^-]+", TokenType.OPERATOR);
+        SQL_REGEX_MAP.put(Pattern.compile("[;:()\\[\\],\\.]",Pattern.CASE_INSENSITIVE), TokenType.PUNCTUATION);
+        SQL_REGEX_MAP.put(Pattern.compile("[<>=~!]+",Pattern.CASE_INSENSITIVE), TokenType.COMPARISON);
+        SQL_REGEX_MAP.put(Pattern.compile("[+/@#%^&|`?^-]+",Pattern.CASE_INSENSITIVE), TokenType.OPERATOR);
 
         KEYWORDS_COMMON.put("SELECT", TokenType.DML);
         KEYWORDS_COMMON.put("INSERT", TokenType.DML);
